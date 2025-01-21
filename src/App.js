@@ -6,6 +6,7 @@ import {Route, Routes} from 'react-router-dom';
 import {MainArea} from './MainArea';
 import {Box, Button} from "@mui/material";
 import { Link } from "react-router";
+import {Store} from './Store';
 
 function App() {
     return (
@@ -45,6 +46,13 @@ function App() {
                     <Link to="/draft">Draft Area</Link>
 
                 </div>
+                <div>
+
+                    <Link to="/store">Store</Link>
+
+                </div>
+
+                
 
                 <Button variant={"contained"}>Material button</Button>
                 {/* <p>
@@ -60,6 +68,7 @@ function App() {
                     {/* <Route path="/" element={<App />} /> */}
                     <Route path="/main" element={<MainArea/>}/>
                     <Route path="/draft" element={<DraftArea/>}/>
+                    <Route path="/store" element={<Store/>}/>
 
                 </Routes>
 
