@@ -9,13 +9,15 @@ export const Car2=()=>{
 
     return(
         <>
+
+        <h3>car 2</h3>
     <p>     
     my car= {company}
   </p>
   
 
             <h3>component controlled by react ( by assigning the value directly). will be affected by reset</h3>
-   <input type="text" onChange={changeMode2} value = {company} />
+            <input type="text" onChange={changeMode2} value = {company} />
 
 
             <h3>component uncontrolled by react ( no assigning the value directly). won't be affected by reset</h3>
