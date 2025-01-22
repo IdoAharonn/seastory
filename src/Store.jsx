@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, Checkbox, TextField } from "@mui/material";
 
 //כל הרכיב = קומפוננטה יושב כאן
 export const Store = () => {
@@ -16,9 +16,12 @@ export const Store = () => {
 
 
     const changeProduct = (ev) => {
-        const value = ev.target.value;
+        let value = ev.target.value;
         const name = ev.target.name;
-        console.log("target=", value, " name=", name);
+        console.log("target=", value, " name=", name, ev.target.checked);
+        if(name==="inStock"){
+            value=ev.target.checked;
+        }
         setMyProduct((prev)=>{ 
             return{...prev,[name]:value}
         })
@@ -38,7 +41,8 @@ export const Store = () => {
 
             <TextField id="outlined-basic" label="price" variant="outlined" name="price" type='number'
             onChange={changeProduct}/>
-
+                <p> in stock?</p>
+            <Checkbox  label = "in stock" name= "inStock" onChange={changeProduct}/>
 
             <div style={{ border: '1px solid #ccc', padding: '10px', margin: '10px' }}>
                 <h3>{myProduct.name}</h3>
