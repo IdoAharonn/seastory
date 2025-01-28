@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Button, Checkbox, TextField } from "@mui/material";
 
 //כל הרכיב = קומפוננטה יושב כאן
@@ -14,6 +14,9 @@ export const Store = () => {
 
     });
 
+    const [myProducts,setMyProducts]= useState([]);
+
+    
     const [myCastumers, setCastumers] = useState({
         name: "default",
         age: -1,
@@ -22,6 +25,13 @@ export const Store = () => {
 
 
     });
+    const [productsUpdate,setProductsUpdate] =useState(true);
+
+    useEffect( ()=>{
+            
+            setMyProducts(products);
+    },[productsUpdate]);
+
     const changeProduct = (ev) => {
         let value = ev.target.value;
         const name = ev.target.name;
@@ -32,9 +42,19 @@ export const Store = () => {
         setMyProduct((prev) => {
             return { ...prev, [name]: value }
         });
+    }
+    const notWork = ()=>{
 
-
-     
+        products.push(myProduct);
+        setProductsUpdate(!productsUpdate);
+        setMyProduct({
+            name: "",
+            description: "",
+            price: 0,
+            inStock: false,
+    
+    
+        })
     }
 
         const changeCastumers = (ev) => {
@@ -55,16 +75,24 @@ export const Store = () => {
             <>
                 <h2>this is my store  </h2>
                 <h3>add products</h3>
-                <TextField id="outlined-basic" label="name" variant="outlined" name="name"
+                <TextField id="outlined-basic" label="name" variant="outlined" name="name" value = {myProduct.name}
                     onChange={changeProduct} />
 
-                <TextField id="outlined-basic" label="description" variant="outlined" name="description"
+                <TextField id="outlined-basic" label="description" variant="outlined" name="description" value = {myProduct.description}
                     onChange={changeProduct} />
 
-                <TextField id="outlined-basic" label="price" variant="outlined" name="price" type='number'
+                <TextField id="outlined-basic" label="price" variant="outlined" name="price" type='number' value = {myProduct.price}
                     onChange={changeProduct} />
                 <p> in stock?</p>
-                <Checkbox label="in stock" name="inStock" onChange={changeProduct} />
+                {/* <Checkbox label="in stock" name="inStock" onChange={changeProduct} checked = {myProduct.inStock} /> */}
+
+                <Checkbox
+    name="inStock"
+    onChange={changeProduct}
+    checked={myProduct.inStock}
+  />
+                    <br />
+                <Button onClick={notWork}>save product</Button>
 
                 <div style={{ border: '1px solid #ccc', padding: '10px', margin: '10px' }}>
                     <h3>{myProduct.name}</h3>
@@ -76,7 +104,7 @@ export const Store = () => {
 
                 <h4>All products</h4>
                 <div>
-                    {products.map((product, index) => (
+                    {myProducts.map((product, index) => (
                         <div key={index} style={{ border: '1px solid #ccc', padding: '10px', margin: '10px' }}>
                             <h3>{product.name}</h3>
                             <p>{product.description}</p>
