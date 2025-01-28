@@ -109,3 +109,10 @@ const product5 = {
 
 }
 const products = [product1, product2, product3, product4, product5];
+/*
+- תרגל עוד שינוי סטייט עם אובייקט גלשן
+- עצב את אותה רשימה בצורה של קלפים כמו אלה
+https://mui.com/material-ui/react-card/#complex-interaction
+
+
+*/
