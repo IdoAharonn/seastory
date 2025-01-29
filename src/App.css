@@ -36,3 +36,47 @@
     transform: rotate(360deg);
   }
 }
+
+  .product {
+    width: 200px;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+    
+  }
+  
+
+  .products-container {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    flex-wrap: wrap;  /* אם יש יותר מדי מוצרים, הם יעברו לשורה חדשה */
+    padding: 20px;
+    background-color: #f9f9f9;
+  }
+  .product img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  .product .price {
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+  }
+  .product p {
+    font-size: 14px;
+    color: #555;
+  }
+  .product h3 {
+    font-size: 18px;
+    margin: 10px 0;
+  }
+  .product:hover {
+    transform: translateY(-5px);
+    cursor: pointer;  /* כאן הוספתי את הקוד הזה */
+  }
