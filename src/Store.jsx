@@ -14,7 +14,12 @@ export const Store = () => {
 
 
     });
-    const [updatedProduct,setUpdatedProduct]= useState(null);    
+    const [updatedProduct, setUpdatedProduct] = useState({
+        name: "",
+        description: "",
+        price: 0,
+        inStock: false,}
+);    
 
     const [myProducts,setMyProducts]= useState([]);
 
@@ -45,11 +50,45 @@ export const Store = () => {
             return { ...prev, [name]: value }
         });
     }
-    const notWork = ()=>{
+    const changeUpdateProduct = (ev) => {
+        let value = ev.target.value;
+        const name = ev.target.name;
+        console.log("target=", value, " name=", name, ev.target.checked);
+        if (name === "inStock") {
+            value = ev.target.checked;
+        }
+        setUpdatedProduct((prev) => {
+            return { ...prev, [name]: value }
+        });
+    }
+    const createProduct = ()=>{
         myProduct.id=generateId();
         products.push(myProduct);
         setProductsUpdate(!productsUpdate);
         setMyProduct({
+            name: "",
+            description: "",
+            price: 0,
+            inStock: false,
+    
+    
+        })
+    }
+    const updateProduct = ()=>{
+        const index=products.findIndex(item=>item.id==updatedProduct.id);
+
+        console.log("updated products = ", updatedProduct);
+        
+
+
+        products[index]=updatedProduct;
+
+            console.log("products = ", products, "index = ", index);
+            
+
+
+        setProductsUpdate(!productsUpdate);
+        setUpdatedProduct({
             name: "",
             description: "",
             price: 0,
@@ -89,12 +128,11 @@ export const Store = () => {
                 {/* <Checkbox label="in stock" name="inStock" onChange={changeProduct} checked = {myProduct.inStock} /> */}
 
                 <Checkbox
-    name="inStock"
-    onChange={changeProduct}
-    checked={myProduct.inStock}
-  />
+                       name="inStock"
+                       onChange={changeProduct}
+                       checked={myProduct.inStock} />
                     <br />
-                <Button onClick={notWork}>save product</Button>
+                <Button onClick={createProduct}>save product</Button>
 
                 <div className="product" style={{ border: '1px solid #ccc', padding: '10px', margin: '10px' }}>
                     <h3>{myProduct.name}</h3>
@@ -104,13 +142,37 @@ export const Store = () => {
                     <img src={myProduct.imgUrl} alt="error" />
                     
                 </div>
+            { updatedProduct.id &&   <>
+               <h1>עדכון פריט</h1>
+                
+                <h3>update product</h3>
+                <TextField id="outlined-basic" label="name" variant="outlined" name="name" value = {updatedProduct.name}
+                    onChange={changeUpdateProduct} />
 
-                    
+                <TextField id="outlined-basic" label="description" variant="outlined" name="description" value = {updatedProduct.description}
+                    onChange={changeUpdateProduct} />
+
+                <TextField id="outlined-basic" label="price" variant="outlined" name="price" type='number' value = {updatedProduct.price}
+                    onChange={changeUpdateProduct} />
+                <p> in stock?</p>
+                {/* <Checkbox label="in stock" name="inStock" onChange={changeUpdateProduct} checked = {myProduct.inStock} /> */}
+
+                <Checkbox
+                       name="inStock"
+                       onChange={changeUpdateProduct}
+                       checked={updatedProduct.inStock} />
+                    <br />
+                <Button onClick={updateProduct}>update product</Button>
+                    <p>{updatedProduct.id}#</p>
+            
+                </>}
+
 
                 <h4>All products</h4>
                 <div className="products-container">
                     {myProducts.map((product, index) => (
-                        <div className="product"  key={index} style={{ border: '1px solid #ccc', padding: '10px', margin: '10px' }}>
+                        <div className="product"  key={index} style={{ border: '1px solid #ccc', padding: '10px', margin: '10px' }} 
+                        onClick={()=>setUpdatedProduct(product)}>
                             <h3>{product.name}</h3>
                             <p>{product.description}</p>
                             <p className="price">Price: ${product.price}</p>
